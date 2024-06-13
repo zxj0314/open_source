@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+</head>
+<body>
+    <hr>
+    <ul>
+        {% for student in students %}
+            {# 属性或方法：调用类定义函数直接返回雷属性值 #}
+            {% if forloop.first %}
+                <li style="color:red">{{ student.get_name }}</li>
+            {% elif forloop.last %}
+                <li style="color: green">{{ student.get_name }}</li>
+            {% elif forloop.counter|divisibleby:2 %}
+                <li style="color: #ffec38">{{ student.get_name }}</li>
+            {% else %}
+                <li>{{ student.get_name }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <hr>
+    <h3>{{ students.0.s_name }}</h3>
+    {# 索引：直接通过ID值调用类属性值 #}
+    <ul>
+        {% for student in students %}
+            {# counter从1计数，counter0从0开始计数 #}
+            {# <li>{{ forloop.counter }}.{{ student.s_name }}</li>#}
+            {# revcounter倒序显示序号从1开始，revcounter0从0开始计数 #}
+            {% ifequal forloop.counter 5 %}
+                <li style="color: #00ffff">{{ student.get_name }}</li>
+            {% endifequal %}
+            <li>{{ forloop.revcounter }}.{{ student.s_name }}</li>
+        {% empty %}
+            <h3>查无此人</h3>
+        {% endfor %}
+    </ul>
+    {% comment %}
+        <ul>
+            <li>1</li>
+            <li>2</li>
+        </ul>
+        {% endcomment %}
+    <hr>
+
+    <h3>分数是：{{ socks }}</h3>
+    <h3>分数是乘以5：{% widthratio socks 1 5 %}</h3>
+    <h3>分数是除以11：{% widthratio socks 11 5 %}</h3>
+    {#  off 转义；on 不转义  #}
+    {#{% autoescape on %} #}
+    {% autoescape off %}
+        {{ link }}
+    {% endautoescape %}
+</body>
+</html>
